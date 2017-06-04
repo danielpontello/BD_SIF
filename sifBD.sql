@@ -9,22 +9,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema sifBD
+-- Schema sifDB
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `sifBD` ;
+DROP SCHEMA IF EXISTS `sifDB` ;
 
 -- -----------------------------------------------------
--- Schema sifBD
+-- Schema sifDB
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `sifBD` DEFAULT CHARACTER SET utf8 ;
-USE `sifBD` ;
+CREATE SCHEMA IF NOT EXISTS `sifDB` DEFAULT CHARACTER SET utf8 ;
+USE `sifDB` ;
 
 -- -----------------------------------------------------
--- Table `sifBD`.`vendedor`
+-- Table `sifDB`.`vendedor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sifBD`.`vendedor` ;
+DROP TABLE IF EXISTS `sifDB`.`vendedor` ;
 
-CREATE TABLE IF NOT EXISTS `sifBD`.`vendedor` (
+CREATE TABLE IF NOT EXISTS `sifDB`.`vendedor` (
   `vendedor_id` INT NOT NULL AUTO_INCREMENT,
   `vendedor_comissao` INT NOT NULL,
   `vendedor_unidade` VARCHAR(80) NOT NULL,
@@ -40,11 +40,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sifBD`.`gerente`
+-- Table `sifDB`.`gerente`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sifBD`.`gerente` ;
+DROP TABLE IF EXISTS `sifDB`.`gerente` ;
 
-CREATE TABLE IF NOT EXISTS `sifBD`.`gerente` (
+CREATE TABLE IF NOT EXISTS `sifDB`.`gerente` (
   `gerente_id` INT NOT NULL AUTO_INCREMENT,
   `gerente_nome` VARCHAR(80) NOT NULL,
   `gerente_cpf` VARCHAR(11) NOT NULL,
@@ -58,11 +58,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sifBD`.`cliente`
+-- Table `sifDB`.`cliente`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sifBD`.`cliente` ;
+DROP TABLE IF EXISTS `sifDB`.`cliente` ;
 
-CREATE TABLE IF NOT EXISTS `sifBD`.`cliente` (
+CREATE TABLE IF NOT EXISTS `sifDB`.`cliente` (
   `cliente_id` INT NOT NULL AUTO_INCREMENT,
   `cliente_nome` VARCHAR(80) NOT NULL,
   `cliente_endereco` VARCHAR(80) NOT NULL,
@@ -75,11 +75,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sifBD`.`veiculo`
+-- Table `sifDB`.`veiculo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sifBD`.`veiculo` ;
+DROP TABLE IF EXISTS `sifDB`.`veiculo` ;
 
-CREATE TABLE IF NOT EXISTS `sifBD`.`veiculo` (
+CREATE TABLE IF NOT EXISTS `sifDB`.`veiculo` (
   `veiculo_id` INT NOT NULL AUTO_INCREMENT,
   `veiculo_modelo` VARCHAR(80) NOT NULL,
   `veiculo_preco` REAL NOT NULL,
@@ -92,11 +92,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sifBD`.`funcionario`
+-- Table `sifDB`.`funcionario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sifBD`.`funcionario` ;
+DROP TABLE IF EXISTS `sifDB`.`funcionario` ;
 
-CREATE TABLE IF NOT EXISTS `sifBD`.`funcionario` (
+CREATE TABLE IF NOT EXISTS `sifDB`.`funcionario` (
   `funcionario_id` INT NOT NULL AUTO_INCREMENT,
   `vendedor_vendedor_id` INT NOT NULL,
   `gerente_gerente_id` INT NOT NULL,
@@ -105,23 +105,23 @@ CREATE TABLE IF NOT EXISTS `sifBD`.`funcionario` (
   INDEX `fk_funcionario_gerente1_idx` (`gerente_gerente_id` ASC),
   CONSTRAINT `fk_funcionario_vendedor1`
     FOREIGN KEY (`vendedor_vendedor_id`)
-    REFERENCES `sifBD`.`vendedor` (`vendedor_id`)
+    REFERENCES `sifDB`.`vendedor` (`vendedor_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_funcionario_gerente1`
     FOREIGN KEY (`gerente_gerente_id`)
-    REFERENCES `sifBD`.`gerente` (`gerente_id`)
+    REFERENCES `sifDB`.`gerente` (`gerente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sifBD`.`venda`
+-- Table `sifDB`.`venda`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sifBD`.`venda` ;
+DROP TABLE IF EXISTS `sifDB`.`venda` ;
 
-CREATE TABLE IF NOT EXISTS `sifBD`.`venda` (
+CREATE TABLE IF NOT EXISTS `sifDB`.`venda` (
   `venda_id` INT NOT NULL AUTO_INCREMENT,
   `venda_data` DATE NOT NULL,
   `venda_precoVeiculo` REAL NOT NULL,
@@ -135,28 +135,28 @@ CREATE TABLE IF NOT EXISTS `sifBD`.`venda` (
   INDEX `fk_venda_cliente1_idx` (`cliente_cliente_id` ASC),
   CONSTRAINT `fk_venda_funcionario1`
     FOREIGN KEY (`funcionario_funcionario_id`)
-    REFERENCES `sifBD`.`funcionario` (`funcionario_id`)
+    REFERENCES `sifDB`.`funcionario` (`funcionario_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_venda_veiculo1`
     FOREIGN KEY (`veiculo_veiculo_id`)
-    REFERENCES `sifBD`.`veiculo` (`veiculo_id`)
+    REFERENCES `sifDB`.`veiculo` (`veiculo_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_venda_cliente1`
     FOREIGN KEY (`cliente_cliente_id`)
-    REFERENCES `sifBD`.`cliente` (`cliente_id`)
+    REFERENCES `sifDB`.`cliente` (`cliente_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sifBD`.`acessorio`
+-- Table `sifDB`.`acessorio`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sifBD`.`acessorio` ;
+DROP TABLE IF EXISTS `sifDB`.`acessorio` ;
 
-CREATE TABLE IF NOT EXISTS `sifBD`.`acessorio` (
+CREATE TABLE IF NOT EXISTS `sifDB`.`acessorio` (
   `acessorio_id` INT NOT NULL AUTO_INCREMENT,
   `acessorio_nome` VARCHAR(45) NOT NULL,
   `acessorio_preco` REAL NOT NULL,
@@ -168,11 +168,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sifBD`.`venda_has_acessorio`
+-- Table `sifDB`.`venda_has_acessorio`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `sifBD`.`venda_has_acessorio` ;
+DROP TABLE IF EXISTS `sifDB`.`venda_has_acessorio` ;
 
-CREATE TABLE IF NOT EXISTS `sifBD`.`venda_has_acessorio` (
+CREATE TABLE IF NOT EXISTS `sifDB`.`venda_has_acessorio` (
   `venda_venda_id` INT NOT NULL,
   `acessorio_acessorio_id` INT NOT NULL,
   `venda_has_acessoriocol_preco` REAL NOT NULL,
@@ -182,12 +182,12 @@ CREATE TABLE IF NOT EXISTS `sifBD`.`venda_has_acessorio` (
   INDEX `fk_venda_has_acessorio_acessorio1_idx` (`acessorio_acessorio_id1` ASC),
   CONSTRAINT `fk_venda_has_acessorio_venda1`
     FOREIGN KEY (`venda_venda_id`)
-    REFERENCES `sifBD`.`venda` (`venda_id`)
+    REFERENCES `sifDB`.`venda` (`venda_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_venda_has_acessorio_acessorio1`
     FOREIGN KEY (`acessorio_acessorio_id1`)
-    REFERENCES `sifBD`.`acessorio` (`acessorio_id`)
+    REFERENCES `sifDB`.`acessorio` (`acessorio_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
