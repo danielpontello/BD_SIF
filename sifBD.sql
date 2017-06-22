@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `sifDB`.`veiculo` (
   `veiculo_quantidade` INT NOT NULL,
   `veiculo_cor` VARCHAR(45) NOT NULL,
   `veiculo_ano` INT NOT NULL,
-  `veiculo_ativo` TINYINT(1) NOT NULL,
+  `veiculo_ativo` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`veiculo_id`))
 ENGINE = InnoDB;
 
@@ -188,13 +188,13 @@ CREATE TABLE IF NOT EXISTS `sifDB`.`venda_has_acessorio` (
   CONSTRAINT `fk_venda_has_acessorio_venda1`
     FOREIGN KEY (`venda_venda_id`)
     REFERENCES `sifDB`.`venda` (`venda_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_venda_has_acessorio_acessorio1`
     FOREIGN KEY (`acessorio_acessorio_id`)
     REFERENCES `sifDB`.`acessorio` (`acessorio_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
